@@ -7,7 +7,7 @@ import {
   hasValidMentionCharIndex
 } from "./utils";
 import "./quill.mention.css";
-import "./blots/mention";
+import MentionBlot from "./blots/mention";
 
 class Mention {
   constructor(quill, options) {
@@ -125,6 +125,11 @@ class Mention {
       },
       this.downHandler.bind(this)
     );
+  }
+
+  get window() {
+    const container = this.quill.container;
+    return container.ownerDocument.defaultView;
   }
 
   selectHandler() {
@@ -319,7 +324,7 @@ class Mention {
   containerBottomIsNotVisible(topPos, containerPos) {
     const mentionContainerBottom =
       topPos + this.mentionContainer.offsetHeight + containerPos.top;
-    return mentionContainerBottom > window.pageYOffset + window.innerHeight;
+    return mentionContainerBottom > this.window.pageYOffset + this.window.innerHeight;
   }
 
   containerRightIsNotVisible(leftPos, containerPos) {
@@ -330,7 +335,7 @@ class Mention {
     const rightPos =
       leftPos + this.mentionContainer.offsetWidth + containerPos.left;
     const browserWidth =
-      window.pageXOffset + this.quill.container.ownerDocument.documentElement.clientWidth;
+      this.window.pageXOffset + this.quill.container.ownerDocument.documentElement.clientWidth;
     return rightPos > browserWidth;
   }
 
@@ -492,6 +497,7 @@ class Mention {
   }
 }
 
-Quill.register("modules/mention", Mention);
-
-export default Mention;
+export {
+  Mention,
+  MentionBlot
+};
