@@ -60,8 +60,10 @@ class Mention {
         : this.options.dataAttributes
     });
 
+    const doc = this.quill.container.ownerDocument;
+
     //create mention container
-    this.mentionContainer = Quill.getDocument().createElement("div");
+    this.mentionContainer = doc.createElement("div");
     this.mentionContainer.className = this.options.mentionContainerClass
       ? this.options.mentionContainerClass
       : "";
@@ -72,7 +74,7 @@ class Mention {
       this.mentionContainer.style.width = "auto";
     }
 
-    this.mentionList = Quill.getDocument().createElement("ul");
+    this.mentionList = doc.createElement("ul");
     this.mentionList.className = this.options.mentionListClass
       ? this.options.mentionListClass
       : "";
@@ -280,7 +282,7 @@ class Mention {
       this.mentionList.innerHTML = "";
 
       for (let i = 0; i < data.length; i += 1) {
-        const li = Quill.getDocument().createElement("li");
+        const li = this.quill.container.ownerDocument.createElement("li");
         li.className = this.options.listItemClass
           ? this.options.listItemClass
           : "";
@@ -328,7 +330,7 @@ class Mention {
     const rightPos =
       leftPos + this.mentionContainer.offsetWidth + containerPos.left;
     const browserWidth =
-      window.pageXOffset + Quill.getDocument().documentElement.clientWidth;
+      window.pageXOffset + this.quill.container.ownerDocument.documentElement.clientWidth;
     return rightPos > browserWidth;
   }
 
