@@ -13,7 +13,7 @@
     "README.md"
   ],
   "peerDependencies": {
-    "quill": "^1.3.4"
+    "quill": "git+https://github.com/TeamAround/quill.git#release/1.3.7-around"
   },
   "devDependencies": {
     "@ava/babel": "^0.4.0",
